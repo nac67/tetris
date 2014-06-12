@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+
+<head>
+<style type="text/css">
+    body {
+        background-color:#eeeeee;
+    }
+
+    p {
+        font-family: sans-serif;
+    }
+
+    div {
+        margin-left: auto;
+        margin-right: auto;
+        width: 600px;
+    }
+</style>
+</head>
+
+<body>
+  <div>
+  	<canvas id="myCanvas" width="600" height="400"></canvas>
+    <p id="statusTxt"> Status:</p>
+    <p id="yourID"> Your ID is</p>
+    <input id="friendID" type="text"></input>
+    <button type="button" id="connectBtn">Connect</button> 
+    
+
+    <script src="http://cdn.peerjs.com/0.3/peer.min.js"></script>
+
+  	<script src="setup/setup.js" language="javascript"></script>
+    <script src="setup/Key.js" language="javascript"></script>
+    <script src="setup/cookies.js" language="javascript"></script>
+    <script src="tetris/piece.js" language="javascript"></script>
+    <script src="tetris/eyecandy.js" language="javascript"></script>
+    <script src="tetris/constants.js" language="javascript"></script>
+    <script src="tetris/utils.js" language="javascript"></script>
+    <script src="tetris/tetrisboard.js" language="javascript"></script>
+    <script src="tetris/gamecontroller.js" language="javascript"></script>
+  	<script src="gamenetworked.js" language="javascript"></script>
+  </div>
+</body>
+
+</html>
