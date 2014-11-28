@@ -47,6 +47,7 @@ var TetrisBoard = function (garbage, garbageIndex) {
         this.allowedToHold = true;
         this.score = 0;
         this.fallInterval = START_FALL_INTERVAL;
+        this.eyeCandy.resetEverything();
     }
 
     /**
@@ -238,10 +239,10 @@ var TetrisBoard = function (garbage, garbageIndex) {
 
         // check for game over condition
         if(this.wouldBeColidingIfMoved(this.activePiece.cells,0,0)){
-            return true;
+            return [true, rowScore];
         }
 
-        return false;
+        return [false, rowScore];
     }
 
     /**
