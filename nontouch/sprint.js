@@ -1,6 +1,7 @@
 //DOM
 var score_txt = document.getElementById("score");
 var highscore_txt = document.getElementById("highscore");
+var timer_txt = document.getElementById("timer");
 
 //OVERRIDE CONSTANTS
 NO_MERCY = true;
@@ -34,7 +35,7 @@ function restart() {
     lineCount = NEEDED_LINES;
     countDown = COUNTDOWN_TIME;
     player1.restart();
-    startTime = new Date();
+    
 }
 
 restart();
@@ -44,6 +45,17 @@ function formatTime (t) {
     var minutes = Math.floor(seconds / 60);
     seconds = seconds % 60;
     return minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+}
+
+function getTime() {
+    try {
+        endTime = new Date();
+        var timeStart = Math.round(startTime.getTime()/1000);
+        var timeEnd = Math.round(endTime.getTime()/1000);
+        return timeEnd - timeStart;
+    } catch (e) {
+        return 0;
+    }
 }
 
 /**
@@ -74,20 +86,21 @@ function animate() {
     if(focused && !paused && !gameOver){
         if (countDown > 0) {
             countDown --;
+        } else if (countDown == 0) {
+            startTime = new Date();
+            countDown = -1;
         } else {
             updateResults = player1.update();
 
             lineCount -= updateResults[1];
             if(lineCount <=0){
-                endTime = new Date();
-                var timeStart = Math.round(startTime.getTime()/1000);
-                var timeEnd = Math.round(endTime.getTime()/1000);
-                finishTime = timeEnd - timeStart;
+                
+                finishTime = getTime();
 
                 if(highscore == 0 || finishTime < highscore) {
                     highscore = finishTime;
-                    setCookie("sprint_highscore",String(highscore),365);
                 }
+                setCookie("sprint_highscore",String(highscore),365);
 
             }
         }
@@ -149,6 +162,7 @@ function animate() {
 
     score_txt.innerHTML = "Score: "+player1.tetris.score;
     highscore_txt.innerHTML = "High Score: "+formatTime(highscore);
+    timer_txt.innerHTML = "Time: "+formatTime(getTime());
 
 
     // request new frame

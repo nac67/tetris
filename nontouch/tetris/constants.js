@@ -3,13 +3,13 @@ var COLS = 10;
 
 ROWS+=2                     //account for hidden rows above top of screen
 
-var DAS = 15;               //delayed auto shift (how long to hold L/R before auto shift)
+var DAS = 13;               //delayed auto shift (how long to hold L/R before auto shift)
 var MOVE_INTERVAL = 3;      //how fast object moves when you hold down
 var START_FALL_INTERVAL = 20;     //how fast fall interval starts
 
 var SPEED_UP = false;       //should fall interval speed up
 var DECAY = 20;             //how fast it approaches max speed
-var MIN_FALL_INTERVAL = 3;  //fastest fallInterval can be
+var MIN_FALL_INTERVAL = 2;  //fastest fallInterval can be
 
 
 var MAX_SETTLE = 40;        //amount of time till locking
