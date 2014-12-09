@@ -3,8 +3,8 @@ var COLS = 10;
 
 ROWS+=2                     //account for hidden rows above top of screen
 
-var DAS = 12;               //delayed auto shift (how long to hold L/R before auto shift)
-var MOVE_INTERVAL = 3;      //how fast object moves when you hold down
+var DAS = 11;               //delayed auto shift (how long to hold L/R before auto shift)
+var MOVE_INTERVAL = 2;      //how fast object moves when you hold down
 var START_FALL_INTERVAL = 20;     //how fast fall interval starts
 
 var SPEED_UP = false;       //should fall interval speed up
