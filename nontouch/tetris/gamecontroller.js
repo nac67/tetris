@@ -6,7 +6,7 @@
 * @param playerNumber Which index of the garbage array am I
 * @param controls Object with mappings of moves to button ASCII codes
 */
-var GameController = function (garbage, playerNumber, controls) {
+var GameController = function (playerNumber, controls, sharedGarbage) {
     /** ASCII codes for buttons */
     this.spinBtn = controls.spin;
     this.leftBtn = controls.left;
@@ -15,8 +15,12 @@ var GameController = function (garbage, playerNumber, controls) {
     this.hardBtn = controls.hard;
     this.holdBtn = controls.hold;
 
-    this.tetris = new TetrisBoard(garbage, playerNumber);
-    this.tetris.restartLevel(garbage, playerNumber);
+    if (typeof(sharedGarbage) === 'undefined') {
+        sharedGarbage = [0,0];
+    }
+
+    this.tetris = new TetrisBoard(sharedGarbage, playerNumber);
+    this.tetris.restartLevel(sharedGarbage, playerNumber);
 
     this.gametime = 0;           //overall game timer
     this.prevLeft = false;       //keep track of previous state of various keys

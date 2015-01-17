@@ -1,8 +1,8 @@
 var gameOverTimer = 0;
-var garbageQueue = [0,0]; //how many junk lines to send player i
+var garbageQueue = [0,0]; //how many junk lines to send player i, shared between players by reference
 
-var player1 = new GameController(garbageQueue,0, UPPER_KEYBOARD_CONTROLS); //W A D S 1 ~
-var player2 = new GameController(garbageQueue,1, DEFAULT_CONTROLS);
+var player1 = new GameController(0, UPPER_KEYBOARD_CONTROLS, garbageQueue); //W A D S 1 ~
+var player2 = new GameController(1, DEFAULT_CONTROLS, garbageQueue);
 
 var prevP = false;
 var prevR = false;

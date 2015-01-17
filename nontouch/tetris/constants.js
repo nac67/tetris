@@ -9,7 +9,7 @@ var START_FALL_INTERVAL = 20;     //how fast fall interval starts
 
 var SPEED_UP = false;       //should fall interval speed up
 var DECAY = 20;             //how fast it approaches max speed
-var MIN_FALL_INTERVAL = 2;  //fastest fallInterval can be
+var MIN_FALL_INTERVAL = 1;  //fastest fallInterval can be
 
 
 var MAX_SETTLE = 40;        //amount of time till locking
