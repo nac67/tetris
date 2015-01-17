@@ -25,3 +25,21 @@ var MERCY_RATIO = .75;      //if danger is above this level, then completing any
                             //will also eliminate a row from the bottom
 
 var NO_MERCY = false;       //disable mercy mode
+
+var DEFAULT_CONTROLS = {
+    spin: Key.UP,
+    left: Key.LEFT,
+    right: Key.RIGHT,
+    soft: Key.DOWN,
+    hard: 32,
+    hold: 16,
+}
+
+var UPPER_KEYBOARD_CONTROLS = {
+    spin: 87,
+    left: 65,
+    right: 68,
+    soft: 83,
+    hard: 49,
+    hold: 192,
+}

@@ -3,13 +3,13 @@
 * that alter it.
 * @param garbage      Reference to the 2-item garbage list which stores how many
                       junk rows to send to the the ith player
-* @param garbageIndex Which index of the garbage array am I
+* @param playerNumber Which index of the garbage array am I
 */
-var TetrisBoard = function (garbage, garbageIndex) {
+var TetrisBoard = function (garbage, playerNumber) {
     //know your enemy
     this.garbage = garbage;
-    this.myIndex = garbageIndex; //0 or 1
-    this.enemyIndex = (garbageIndex+1) % garbage.length; //reverse of myIndex
+    this.myIndex = playerNumber; //0 or 1
+    this.enemyIndex = (playerNumber+1) % garbage.length; //reverse of myIndex
 
     this.score = 0;              //if single player
 
@@ -398,7 +398,7 @@ var TetrisBoard = function (garbage, garbageIndex) {
         };
         var totalPossible = (COLS-IGNORED)*(ROWS-2); //rows-2 due to hidden rows
 
-        //if(garbageIndex == 1)test_txt.innerHTML = colSpace.toString()//"sum: "+sum+"\n"+(1-(sum/totalPossible));
+        //if(playerNumber == 1)test_txt.innerHTML = colSpace.toString()//"sum: "+sum+"\n"+(1-(sum/totalPossible));
         return 1-(sum/totalPossible);
     }
 } 

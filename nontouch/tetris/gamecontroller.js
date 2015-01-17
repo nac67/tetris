@@ -3,25 +3,20 @@
 * Manages the game board and processes the user input every time step.
 * @param garbage      Reference to the 2-item garbage list which stores how many
                       junk rows to send to the the ith player
-* @param garbageIndex Which index of the garbage array am I
-* @param spinBtn      Which ASCII key code to use to spin piece
-* @param leftBtn      Which ASCII key code to use to move left
-* @param rightBtn     Which ASCII key code to use to move right
-* @param softBtn      Which ASCII key code to use to soft drop
-* @param hardBtn      Which ASCII key code to use to hard drop
-* @param holdBtn      Which ASCII key code to use to hold piece for later
+* @param playerNumber Which index of the garbage array am I
+* @param controls Object with mappings of moves to button ASCII codes
 */
-var GameController = function (garbage, garbageIndex, spinBtn, leftBtn, rightBtn, softBtn, hardBtn, holdBtn) {
+var GameController = function (garbage, playerNumber, controls) {
     /** ASCII codes for buttons */
-    this.spinBtn = spinBtn;
-    this.leftBtn = leftBtn;
-    this.rightBtn = rightBtn;
-    this.softBtn = softBtn;
-    this.hardBtn = hardBtn;
-    this.holdBtn = holdBtn;
+    this.spinBtn = controls.spin;
+    this.leftBtn = controls.left;
+    this.rightBtn = controls.right;
+    this.softBtn = controls.soft;
+    this.hardBtn = controls.hard;
+    this.holdBtn = controls.hold;
 
-    this.tetris = new TetrisBoard(garbage, garbageIndex);
-    this.tetris.restartLevel(garbage, garbageIndex);
+    this.tetris = new TetrisBoard(garbage, playerNumber);
+    this.tetris.restartLevel(garbage, playerNumber);
 
     this.gametime = 0;           //overall game timer
     this.prevLeft = false;       //keep track of previous state of various keys
