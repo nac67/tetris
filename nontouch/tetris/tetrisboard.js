@@ -284,7 +284,7 @@ var TetrisBoard = function (garbage, playerNumber) {
     * piece by that much. Otherwise there doesn't exist an acceptable location for
     * this piece to exist if it is rotated, so it leaves the piece alone
     */
-    this.rotateActivePieceIfPossible = function(){
+    this.rotateActivePieceIfPossible = function(clockwise){
         //don't rotate square
         if(this.activePiece.c == 3) return;
 
@@ -300,8 +300,13 @@ var TetrisBoard = function (garbage, playerNumber) {
             //perform translate, rotate, translate back
             var newX = oldX - this.activePiece.origin[0];
             var newY = oldY - this.activePiece.origin[1];
-            var newnewX = -newY;
-            var newnewY = newX;
+            if (clockwise) {
+                var newnewX = -newY;
+                var newnewY = newX;
+            } else {
+                var newnewX = newY;
+                var newnewY = -newX;
+            }
             newnewX += this.activePiece.origin[0];
             newnewY += this.activePiece.origin[1];
 

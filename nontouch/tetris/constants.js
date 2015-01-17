@@ -33,6 +33,8 @@ var DEFAULT_CONTROLS = {
     soft: Key.DOWN,
     hard: 32,
     hold: 16,
+    spinCW: 88,
+    spinCCW: 90,
 }
 
 var UPPER_KEYBOARD_CONTROLS = {
@@ -42,4 +44,6 @@ var UPPER_KEYBOARD_CONTROLS = {
     soft: 83,
     hard: 49,
     hold: 192,
+    spinCW: 51,
+    spinCCW: 50,
 }

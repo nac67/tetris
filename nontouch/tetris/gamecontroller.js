@@ -1,8 +1,8 @@
 /**
 * Class: Controls a player of a tetris game
 * Manages the game board and processes the user input every time step.
-* @param garbage      Reference to the 2-item garbage list which stores how many
-                      junk rows to send to the the ith player
+* @param sharedGarbage      Reference to the 2-item garbage list which stores how many
+                            junk rows to send to the the ith player
 * @param playerNumber Which index of the garbage array am I
 * @param controls Object with mappings of moves to button ASCII codes
 */
@@ -14,6 +14,8 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
     this.softBtn = controls.soft;
     this.hardBtn = controls.hard;
     this.holdBtn = controls.hold;
+    this.spinCWBtn = controls.spinCW;
+    this.spinCCWBtn = controls.spinCCW;
 
     if (typeof(sharedGarbage) === 'undefined') {
         sharedGarbage = [0,0];
@@ -30,6 +32,8 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
     this.prevSpin = false;
     this.prevHard = false;
     this.prevHold = false;
+    this.prevSpinCW = false;
+    this.prevSpinCCW = false;
 
     this.playerLost = false;
 
@@ -51,7 +55,15 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
         ////////////////////////////////////
         //spin piece, move piece or force down will happen every time step
         if(!this.prevSpin && Key.isDown(this.spinBtn)){
-            t.rotateActivePieceIfPossible();
+            t.rotateActivePieceIfPossible(true);
+        }
+
+        if(!this.prevSpinCW && Key.isDown(this.spinCWBtn)){
+            t.rotateActivePieceIfPossible(true);
+        }
+
+        if(!this.prevSpinCCW && Key.isDown(this.spinCCWBtn)){
+            t.rotateActivePieceIfPossible(false);
         }
         
 
@@ -105,6 +117,8 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
         this.prevHard = Key.isDown(this.hardBtn);
         this.prevSpin = Key.isDown(this.spinBtn);
         this.prevHold = Key.isDown(this.holdBtn);
+        this.prevSpinCW = Key.isDown(this.spinCWBtn);
+        this.prevSpinCCW = Key.isDown(this.spinCCWBtn);
 
         //lock piece into place if touching below and timers up
         if (t.wouldBeColidingIfMoved(t.activePiece.cells,0,1)){
