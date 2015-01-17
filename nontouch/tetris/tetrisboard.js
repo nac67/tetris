@@ -171,6 +171,8 @@ var TetrisBoard = function (garbage, garbageIndex) {
     */
     this.settlePiece = function(){
         var danger = this.dangerLevel();
+
+        var results = {losing: false, rowsCleared: 0};
         
         // make changes to actual board
         for(var i=0;i<this.activePiece.cells.length;i++){
@@ -237,12 +239,16 @@ var TetrisBoard = function (garbage, garbageIndex) {
 
         this.allowedToHold = true;
 
+
+        results.rowsCleared = rowScore;
         // check for game over condition
         if(this.wouldBeColidingIfMoved(this.activePiece.cells,0,0)){
-            return [true, rowScore];
+            results.losing = true;
+            return results;
         }
 
-        return [false, rowScore];
+        results.losing = false;
+        return results;
     }
 
     /**

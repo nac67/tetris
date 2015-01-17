@@ -44,7 +44,7 @@ var GameController = function (garbage, garbageIndex, spinBtn, leftBtn, rightBtn
     this.update = function () {
         var t = this.tetris;
         var completedRows = 0;
-        var updateResults;
+        var updateResults = {losing:false, rowsCleared:0};
 
         this.gametime++;
         ////////////////////////////////////
@@ -81,8 +81,8 @@ var GameController = function (garbage, garbageIndex, spinBtn, leftBtn, rightBtn
             }
             t.eyeCandy.createBlur(t.activePiece.color,t.activePiece.cells);
             updateResults = t.settlePiece();
-            completedRows += updateResults[1];
-            this.playerLost = this.playerLost || updateResults[0];
+            completedRows += updateResults.rowsCleared;
+            this.playerLost = this.playerLost || updateResults.losing;
 
         }
 
@@ -112,8 +112,8 @@ var GameController = function (garbage, garbageIndex, spinBtn, leftBtn, rightBtn
             t.settleTimer++;
             if(t.settleTimer == MAX_SETTLE || t.rotateCount >= MAX_ROTATES || t.shiftCount >= MAX_SHIFTS){
                 updateResults = t.settlePiece();
-                completedRows += updateResults[1];
-                this.playerLost = this.playerLost || updateResults[0];
+                completedRows += updateResults.rowsCleared;
+                this.playerLost = this.playerLost || updateResults.losing;
                 t.settleTimer =0;
             }
         }
@@ -137,7 +137,7 @@ var GameController = function (garbage, garbageIndex, spinBtn, leftBtn, rightBtn
 
         t.eyeCandy.update();
 
-        return [this.playerLost, completedRows];
+        return updateResults;
     }
 
     /** 

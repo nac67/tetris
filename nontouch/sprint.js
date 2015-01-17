@@ -92,7 +92,7 @@ function animate() {
         } else {
             updateResults = player1.update();
 
-            lineCount -= updateResults[1];
+            lineCount -= updateResults.rowsCleared;
             if(lineCount <=0){
                 
                 finishTime = getTime();
