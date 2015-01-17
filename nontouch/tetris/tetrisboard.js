@@ -167,7 +167,9 @@ var TetrisBoard = function (garbage, garbageIndex) {
     * Locks a piece into place. Applies tiles to the board and creates
     * a new active piece. Manages removing rows that are full and handles
     * sending junk to enemy player. Checks for game over condition and returns.
-    * @returns whether this player board is in a losing state.
+    * @returns results object with:
+    *          losing
+    *          rowsCleared
     */
     this.settlePiece = function(){
         var danger = this.dangerLevel();
