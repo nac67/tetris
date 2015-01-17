@@ -29,7 +29,7 @@ function handleConnection(conn) {
     
     var gameOverTimer = 0;
     var garbageQueue = [0,0]; //how many junk lines to send player i
-    var player = new GameController(garbageQueue,0, Key.UP, Key.LEFT, Key.RIGHT, Key.DOWN, 32, 16);
+    var player = new GameController(garbageQueue,0, DEFAULT_CONTROLS);
     var SEND_INTERVAL = 10;
     var sendTime = 0;
     var enemyLost = false;

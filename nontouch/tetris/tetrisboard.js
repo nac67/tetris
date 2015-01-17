@@ -3,13 +3,13 @@
 * that alter it.
 * @param garbage      Reference to the 2-item garbage list which stores how many
                       junk rows to send to the the ith player
-* @param garbageIndex Which index of the garbage array am I
+* @param playerNumber Which index of the garbage array am I
 */
-var TetrisBoard = function (garbage, garbageIndex) {
+var TetrisBoard = function (garbage, playerNumber) {
     //know your enemy
     this.garbage = garbage;
-    this.myIndex = garbageIndex; //0 or 1
-    this.enemyIndex = (garbageIndex+1) % garbage.length; //reverse of myIndex
+    this.myIndex = playerNumber; //0 or 1
+    this.enemyIndex = (playerNumber+1) % garbage.length; //reverse of myIndex
 
     this.score = 0;              //if single player
 
@@ -47,6 +47,7 @@ var TetrisBoard = function (garbage, garbageIndex) {
         this.allowedToHold = true;
         this.score = 0;
         this.fallInterval = START_FALL_INTERVAL;
+        this.eyeCandy.resetEverything();
     }
 
     /**
@@ -166,10 +167,14 @@ var TetrisBoard = function (garbage, garbageIndex) {
     * Locks a piece into place. Applies tiles to the board and creates
     * a new active piece. Manages removing rows that are full and handles
     * sending junk to enemy player. Checks for game over condition and returns.
-    * @returns whether this player board is in a losing state.
+    * @returns results object with:
+    *          losing
+    *          rowsCleared
     */
     this.settlePiece = function(){
         var danger = this.dangerLevel();
+
+        var results = {losing: false, rowsCleared: 0};
         
         // make changes to actual board
         for(var i=0;i<this.activePiece.cells.length;i++){
@@ -236,12 +241,16 @@ var TetrisBoard = function (garbage, garbageIndex) {
 
         this.allowedToHold = true;
 
+
+        results.rowsCleared = rowScore;
         // check for game over condition
         if(this.wouldBeColidingIfMoved(this.activePiece.cells,0,0)){
-            return true;
+            results.losing = true;
+            return results;
         }
 
-        return false;
+        results.losing = false;
+        return results;
     }
 
     /**
@@ -389,7 +398,7 @@ var TetrisBoard = function (garbage, garbageIndex) {
         };
         var totalPossible = (COLS-IGNORED)*(ROWS-2); //rows-2 due to hidden rows
 
-        //if(garbageIndex == 1)test_txt.innerHTML = colSpace.toString()//"sum: "+sum+"\n"+(1-(sum/totalPossible));
+        //if(playerNumber == 1)test_txt.innerHTML = colSpace.toString()//"sum: "+sum+"\n"+(1-(sum/totalPossible));
         return 1-(sum/totalPossible);
     }
 } 

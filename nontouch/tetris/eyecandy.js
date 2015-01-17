@@ -109,6 +109,17 @@ var EyeCandy = function (){
 
     }
 
+    resetEverything = function () {
+        flyingBlocks = [];
+        for (var i = 0; i < 40; i++) {
+            flyingBlocks.push(null);
+        };
+        tail = 0;
+        var oldCells = [];
+        var whoosh = [];
+        whooshTime =0;
+    }
+
 
     /**
     * Draws the visual effects
@@ -165,6 +176,7 @@ var EyeCandy = function (){
         setTopOfDrop : setTopOfDrop,
         createBlur : createBlur,
         update : update,
+        resetEverything : resetEverything,
         draw : draw,
         flashMessage: flashMessage
     }

@@ -12,7 +12,7 @@ highscore = (highscore == "" ? 0 : parseInt(highscore));
 
 
 var gameOverTimer = 0;
-var player1 = new GameController([0,0],0, Key.UP, Key.LEFT, Key.RIGHT, Key.DOWN, 32, 16);
+var player1 = new GameController([0,0],0, DEFAULT_CONTROLS);
 
 var prevP = false;
 var prevR = false;

@@ -9,7 +9,7 @@ var GREY   = "#909090";
 
 var TRANS_RED = "rgba(255,0,0,.5)";
 var TRANS_GREEN = "rgba(0,255,0,.5)";
-var TRANS_WHITE = "rgba(255,255,255,.5)";
+var TRANS_WHITE = "rgba(255,255,255,.8)";
 
 
 // I is cyan

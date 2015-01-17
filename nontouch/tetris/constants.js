@@ -9,7 +9,7 @@ var START_FALL_INTERVAL = 20;     //how fast fall interval starts
 
 var SPEED_UP = false;       //should fall interval speed up
 var DECAY = 20;             //how fast it approaches max speed
-var MIN_FALL_INTERVAL = 3;  //fastest fallInterval can be
+var MIN_FALL_INTERVAL = 2;  //fastest fallInterval can be
 
 
 var MAX_SETTLE = 40;        //amount of time till locking
@@ -25,3 +25,21 @@ var MERCY_RATIO = .75;      //if danger is above this level, then completing any
                             //will also eliminate a row from the bottom
 
 var NO_MERCY = false;       //disable mercy mode
+
+var DEFAULT_CONTROLS = {
+    spin: Key.UP,
+    left: Key.LEFT,
+    right: Key.RIGHT,
+    soft: Key.DOWN,
+    hard: 32,
+    hold: 16,
+}
+
+var UPPER_KEYBOARD_CONTROLS = {
+    spin: 87,
+    left: 65,
+    right: 68,
+    soft: 83,
+    hard: 49,
+    hold: 192,
+}
