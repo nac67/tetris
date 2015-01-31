@@ -90,7 +90,7 @@ function animate() {
             startTime = new Date();
             countDown = -1;
         } else {
-            updateResults = player1.update();
+            updateResults = player1.updateWithKeyboard();
 
             lineCount -= updateResults.rowsCleared;
             if(lineCount <=0){

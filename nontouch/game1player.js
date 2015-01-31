@@ -49,7 +49,7 @@ function animate() {
 
         if(!gameOver){
             if(!paused){
-                player1.update();
+                player1.updateWithKeyboard();
             }
         }else{
             if(gameOverTimer == 0){

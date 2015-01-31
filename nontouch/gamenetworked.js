@@ -96,7 +96,7 @@ function handleConnection(conn) {
       prevR = Key.isDown(82);*/
 
       if(!gameOver){
-        player.update();
+        player.updateWithKeyboard();
       }else{
           if(gameOverTimer == 0){
             if(player.playerLost){

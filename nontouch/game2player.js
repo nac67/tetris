@@ -39,8 +39,8 @@ function animate() {
 
         if(!gameOver){
             if(!paused){
-                player1.update();
-                player2.update();
+                player1.updateWithKeyboard();
+                player2.updateWithKeyboard();
             }
         }else{
             if(gameOverTimer<GAME_OVER_TIME){

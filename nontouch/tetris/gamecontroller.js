@@ -7,19 +7,12 @@
 * @param controls Object with mappings of moves to button ASCII codes
 */
 var GameController = function (playerNumber, controls, sharedGarbage) {
-    /** ASCII codes for buttons */
-    this.spinBtn = controls.spin;
-    this.leftBtn = controls.left;
-    this.rightBtn = controls.right;
-    this.softBtn = controls.soft;
-    this.hardBtn = controls.hard;
-    this.holdBtn = controls.hold;
-    this.spinCWBtn = controls.spinCW;
-    this.spinCCWBtn = controls.spinCCW;
 
     if (typeof(sharedGarbage) === 'undefined') {
         sharedGarbage = [0,0];
     }
+
+    this.controls = controls;
 
     this.tetris = new TetrisBoard(sharedGarbage, playerNumber);
     this.tetris.restartLevel(sharedGarbage, playerNumber);
@@ -44,7 +37,7 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
     }
     
     /** Performs one timestep in the game and processes user input */
-    this.update = function () {
+    this.update = function (spinBtn, spinCWBtn, spinCCWBtn, leftBtn, rightBtn, softBtn, hardBtn, holdBtn) {
         var t = this.tetris;
         var completedRows = 0;
         var updateResults = {losing:false, rowsCleared:0};
@@ -54,38 +47,38 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
         // STUFF THAT HAPPENS EVERY STEP
         ////////////////////////////////////
         //spin piece, move piece or force down will happen every time step
-        if(!this.prevSpin && Key.isDown(this.spinBtn)){
+        if(!this.prevSpin && spinBtn){
             t.rotateActivePieceIfPossible(true);
         }
 
-        if(!this.prevSpinCW && Key.isDown(this.spinCWBtn)){
+        if(!this.prevSpinCW && spinCWBtn){
             t.rotateActivePieceIfPossible(true);
         }
 
-        if(!this.prevSpinCCW && Key.isDown(this.spinCCWBtn)){
+        if(!this.prevSpinCCW && spinCCWBtn){
             t.rotateActivePieceIfPossible(false);
         }
         
 
-        if(!this.prevLeft && Key.isDown(this.leftBtn))
+        if(!this.prevLeft && leftBtn)
             this.leftTimer=0;
-        if(Key.isDown(this.leftBtn)){
+        if(leftBtn){
             this.leftTimer++;
             if(!this.prevLeft || this.leftTimer>DAS && this.gametime % MOVE_INTERVAL == 0){
                 t.tryToMove(-1,0);
             }
         }
 
-        if(!this.prevRight && Key.isDown(this.rightBtn))
+        if(!this.prevRight && rightBtn)
             this.rightTimer=0;
-        if(Key.isDown(this.rightBtn)){
+        if(rightBtn){
             this.rightTimer++;
             if(!this.prevRight || this.rightTimer>DAS && this.gametime % MOVE_INTERVAL == 0){
                 t.tryToMove(1,0);
             }
         }
 
-        if(!this.prevHard && Key.isDown(this.hardBtn)){
+        if(!this.prevHard && hardBtn){
             t.eyeCandy.setTopOfDrop(deepCopy(t.activePiece.cells));
             for(var i=0;i<ROWS;i++){
                 t.lowerPiece();
@@ -97,7 +90,7 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
 
         }
 
-        if(!this.prevHold && Key.isDown(this.holdBtn)){
+        if(!this.prevHold && holdBtn){
             if(t.allowedToHold){
                 if(t.heldPieceID == -1){
                     t.heldPieceID = t.activePiece.c;
@@ -112,13 +105,13 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
             }
         }
 
-        this.prevLeft = Key.isDown(this.leftBtn);
-        this.prevRight = Key.isDown(this.rightBtn);
-        this.prevHard = Key.isDown(this.hardBtn);
-        this.prevSpin = Key.isDown(this.spinBtn);
-        this.prevHold = Key.isDown(this.holdBtn);
-        this.prevSpinCW = Key.isDown(this.spinCWBtn);
-        this.prevSpinCCW = Key.isDown(this.spinCCWBtn);
+        this.prevLeft = leftBtn;
+        this.prevRight = rightBtn;
+        this.prevHard = hardBtn;
+        this.prevSpin = spinBtn;
+        this.prevHold = holdBtn;
+        this.prevSpinCW = spinCWBtn;
+        this.prevSpinCCW = spinCCWBtn;
 
         //lock piece into place if touching below and timers up
         if (t.wouldBeColidingIfMoved(t.activePiece.cells,0,1)){
@@ -151,6 +144,19 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
         t.eyeCandy.update();
 
         return updateResults;
+    }
+
+    this.updateWithKeyboard = function () {
+        var spinBtn = Key.isDown(this.controls.spin),
+            spinCWBtn = Key.isDown(this.controls.spinCW),
+            spinCCWBtn = Key.isDown(this.controls.spinCCW),
+            leftBtn = Key.isDown(this.controls.left),
+            rightBtn = Key.isDown(this.controls.right),
+            softBtn = Key.isDown(this.controls.soft),
+            hardBtn = Key.isDown(this.controls.hard),
+            holdBtn = Key.isDown(this.controls.hold);
+
+        return this.update(spinBtn, spinCWBtn, spinCCWBtn, leftBtn, rightBtn, softBtn, hardBtn, holdBtn);
     }
 
     /** 
