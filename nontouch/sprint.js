@@ -7,7 +7,7 @@ var timer_txt = document.getElementById("timer");
 NO_MERCY = true;
 SPEED_UP = true;
 
-var NEEDED_LINES = 40;
+var NEEDED_LINES = 4;
 var COUNTDOWN_TIME = 180;
 
 var score = 0;
@@ -26,19 +26,28 @@ var lineCount = NEEDED_LINES;
 var startTime;
 var endTime;
 var finishTime;
+var elapsedFrames;
+
+var playingReplayCurrently = false;
 
 
 /**
 * Restart the game
 */
-function restart() {
+function restart(doReplay) {
+    elapsedFrames = 0;
     lineCount = NEEDED_LINES;
     countDown = COUNTDOWN_TIME;
     player1.restart();
-    Replay.createNewReplay();
+    if (doReplay) {
+        playingReplayCurrently = true;
+    } else {
+        Replay.createNewReplay();
+        playingReplayCurrently = false;
+    }
 }
 
-restart();
+restart(false);
 
 function formatTime (t) {
     var seconds = t;
@@ -77,7 +86,7 @@ function animate() {
     // prevP = Key.isDown(80);
 
     if(!prevR && Key.isDown(82)){
-        restart()
+        restart(false)
     }
     prevR = Key.isDown(82);
 
@@ -90,8 +99,13 @@ function animate() {
             startTime = new Date();
             countDown = -1;
         } else {
-            Replay.saveFrame(player1.controls);
-            updateResults = player1.updateWithKeyboard();
+            if (!playingReplayCurrently) {
+                Replay.saveFrame(player1.controls);
+                updateResults = player1.updateWithKeyboard();
+            } else {
+                updateResults = Replay.updateGame(player1, elapsedFrames);
+            }
+            elapsedFrames++;
 
             lineCount -= updateResults.rowsCleared;
             if(lineCount <=0){
@@ -111,8 +125,12 @@ function animate() {
 
     if (gameOver){
         if (Key.isDown(13)) {
-            restart();
+            restart(false);
         }
+        if (Key.isDown(65)) {
+            restart(true);
+        }
+
     }
 
 

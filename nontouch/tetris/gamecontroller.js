@@ -129,7 +129,7 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
         ////////////////////////////////////
         //moving down happens at a fixed rate
         if(this.gametime % MOVE_INTERVAL == 0){
-            if(Key.isDown(this.softBtn)){
+            if(softBtn){
                 t.lowerPiece();
             }
         }

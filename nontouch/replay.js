@@ -30,5 +30,18 @@ var Replay = (function () {
         return currentReplay;
     }
 
-    return {createNewReplay: createNewReplay, saveFrame: saveFrame, keyDownAtTime: keyDownAtTime, getReplay:getReplay};
+    var updateGame = function (player, time) {
+        var spinBtn = keyDownAtTime('spin', time),
+            spinCWBtn = keyDownAtTime('spinCW', time),
+            spinCCWBtn = keyDownAtTime('spinCCW', time),
+            leftBtn = keyDownAtTime('left', time),
+            rightBtn = keyDownAtTime('right', time),
+            softBtn = keyDownAtTime('soft', time),
+            hardBtn = keyDownAtTime('hard', time),
+            holdBtn = keyDownAtTime('hold', time);
+
+        return player.update(spinBtn, spinCWBtn, spinCCWBtn, leftBtn, rightBtn, softBtn, hardBtn, holdBtn);
+    }
+
+    return {createNewReplay: createNewReplay, saveFrame: saveFrame, keyDownAtTime: keyDownAtTime, getReplay:getReplay, updateGame: updateGame};
 })();
