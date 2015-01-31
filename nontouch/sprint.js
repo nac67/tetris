@@ -35,7 +35,7 @@ function restart() {
     lineCount = NEEDED_LINES;
     countDown = COUNTDOWN_TIME;
     player1.restart();
-    
+    Replay.createNewReplay();
 }
 
 restart();
@@ -90,6 +90,7 @@ function animate() {
             startTime = new Date();
             countDown = -1;
         } else {
+            Replay.saveFrame(player1.controls);
             updateResults = player1.updateWithKeyboard();
 
             lineCount -= updateResults.rowsCleared;
