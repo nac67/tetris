@@ -32,6 +32,7 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
     /** restarts the level */
     this.restart = function () {
         this.tetris.restartLevel();
+        this.gametime = 0;
         this.playerLost = false;
     }
     

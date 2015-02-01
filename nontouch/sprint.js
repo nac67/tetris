@@ -5,9 +5,9 @@ var timer_txt = document.getElementById("timer");
 
 //OVERRIDE CONSTANTS
 NO_MERCY = true;
-SPEED_UP = true;
+SPEED_UP = false;
 
-var NEEDED_LINES = 2;
+var NEEDED_LINES = 40;
 var COUNTDOWN_TIME = 180;
 
 var score = 0;
@@ -109,11 +109,9 @@ function animate() {
             countDown = -1;
         } else {
             if (!Replay.running) {
-                Replay.saveFrame(player1.controls);
-                updateResults = player1.updateWithKeyboard();
-            } else {
-                updateResults = Replay.updateGame(player1, elapsedFrames);
+                Replay.saveFrame(player1.controls, elapsedFrames);
             }
+            updateResults = Replay.updateGame(player1, elapsedFrames);
             elapsedFrames++;
 
             lineCount -= updateResults.rowsCleared;

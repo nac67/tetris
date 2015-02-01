@@ -9,17 +9,17 @@ var Replay = (function () {
         listOPieces = [];
     }
 
-    var saveFrame = function (controls) {
+    var saveFrame = function (controls, time) {
         if (currentReplay.length > 7200) return;
 
-        currentReplay.push({spin: Key.isDown(controls.spin),
+        currentReplay[time] = {spin: Key.isDown(controls.spin),
                             left: Key.isDown(controls.left),
                             right: Key.isDown(controls.right),
                             soft: Key.isDown(controls.soft),
                             hard: Key.isDown(controls.hard),
                             hold: Key.isDown(controls.hold),
                             spinCW: Key.isDown(controls.spinCW),
-                            spinCCW: Key.isDown(controls.spinCCW)});
+                            spinCCW: Key.isDown(controls.spinCCW)};
     }
 
     var keyDownAtTime = function (keyStr, time) {
