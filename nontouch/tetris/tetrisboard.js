@@ -15,7 +15,7 @@ var TetrisBoard = function (garbage, playerNumber) {
 
     //init variables
     this.board = [];             //20 rows 10 cols
-    this.currentBag = generateBag();
+    this.currentBag = [];
 
     this.activePiece = null;     //invariant: no cells in activePiece can be occupied by board
 
@@ -42,6 +42,7 @@ var TetrisBoard = function (garbage, playerNumber) {
                 this.board[i].push("");
             }
         }
+        this.currentBag = generateBag();
         this.activePiece = new Piece(this,-1);
         this.heldPieceID = -1;
         this.allowedToHold = true;

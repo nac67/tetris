@@ -7,7 +7,7 @@ var timer_txt = document.getElementById("timer");
 NO_MERCY = true;
 SPEED_UP = true;
 
-var NEEDED_LINES = 4;
+var NEEDED_LINES = 2;
 var COUNTDOWN_TIME = 180;
 
 var score = 0;
@@ -28,22 +28,31 @@ var endTime;
 var finishTime;
 var elapsedFrames;
 
-var playingReplayCurrently = false;
 
 
 /**
 * Restart the game
 */
 function restart(doReplay) {
+
+    if (!doReplay) {
+        Replay.createNewReplay();
+    }
     elapsedFrames = 0;
     lineCount = NEEDED_LINES;
     countDown = COUNTDOWN_TIME;
+
+    
+
     player1.restart();
+
     if (doReplay) {
-        playingReplayCurrently = true;
+        player1.tetris.currentBag = Replay.getPieceBag();
+        var newActivePieceID = player1.tetris.currentBag.pop();
+        player1.tetris.activePiece = new Piece(player1.tetris, newActivePieceID);
+        Replay.running = true;
     } else {
-        Replay.createNewReplay();
-        playingReplayCurrently = false;
+        Replay.running = false;
     }
 }
 
@@ -99,7 +108,7 @@ function animate() {
             startTime = new Date();
             countDown = -1;
         } else {
-            if (!playingReplayCurrently) {
+            if (!Replay.running) {
                 Replay.saveFrame(player1.controls);
                 updateResults = player1.updateWithKeyboard();
             } else {

@@ -15,7 +15,6 @@ var GameController = function (playerNumber, controls, sharedGarbage) {
     this.controls = controls;
 
     this.tetris = new TetrisBoard(sharedGarbage, playerNumber);
-    this.tetris.restartLevel(sharedGarbage, playerNumber);
 
     this.gametime = 0;           //overall game timer
     this.prevLeft = false;       //keep track of previous state of various keys

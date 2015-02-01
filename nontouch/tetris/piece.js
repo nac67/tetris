@@ -140,7 +140,7 @@ function generateBag(){
     var newBag = [];
     while(origBag.length>0){
         var i = Math.floor(Math.random()*origBag.length);
-        newBag.push(origBag.splice(i,1));
+        newBag.push(origBag.splice(i,1)[0]);
     }
     return newBag;
 }
@@ -154,7 +154,11 @@ var Piece = function (game, id) {
     var i;
     if(id == -1){
         i = game.currentBag.pop();
+        if (!Replay.running) {
+            Replay.savePiece(i);
+        }
         if(game.currentBag.length == 0) game.currentBag = generateBag();
+        
     }else{
         i = id;
     }
@@ -200,4 +204,31 @@ function generateJunk(){
 */
 function generateEmpty(){
     return ["","","","","","","","","",""];
+}
+
+
+function printBag(bag) {
+    var string = "";
+    for (var i=0;i<bag.length;i++){
+        var c = bag[i]
+        string += " "
+        if(c == 0){
+            string += "CYAN";
+        }else if(c==1){
+            string += "BLUE";
+        }else if(c==2){
+            string += "ORANGE";
+        }else if(c==3){
+            string += "YELLOW";
+        }else if(c==4){
+            string += "GREEN";
+        }else if(c==5){
+            string += "PURPLE";
+        }else if(c==6){
+            string += "RED";
+        }else{
+            console.log(c);
+        }
+    }
+    console.log(string);
 }

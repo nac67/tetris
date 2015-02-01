@@ -2,9 +2,11 @@ var Replay = (function () {
     // make sure that when replaying a replay, it is not recording a new one over the one currently playing 
     //thus screwing things up., This will only become a problem inside the update function on gameplay controller, but watch out!
     var currentReplay;
+    var listOPieces;
 
     var createNewReplay = function () {
         currentReplay = [];
+        listOPieces = [];
     }
 
     var saveFrame = function (controls) {
@@ -30,6 +32,15 @@ var Replay = (function () {
         return currentReplay;
     }
 
+    var savePiece = function (i) {
+        listOPieces.unshift(i);
+    }
+
+    var getPieceBag = function () {
+        var result = listOPieces.slice();
+        return result;
+    }
+
     var updateGame = function (player, time) {
         var spinBtn = keyDownAtTime('spin', time),
             spinCWBtn = keyDownAtTime('spinCW', time),
@@ -43,5 +54,8 @@ var Replay = (function () {
         return player.update(spinBtn, spinCWBtn, spinCCWBtn, leftBtn, rightBtn, softBtn, hardBtn, holdBtn);
     }
 
-    return {createNewReplay: createNewReplay, saveFrame: saveFrame, keyDownAtTime: keyDownAtTime, getReplay:getReplay, updateGame: updateGame};
+    return {createNewReplay: createNewReplay, saveFrame: saveFrame, keyDownAtTime: keyDownAtTime, getReplay:getReplay, updateGame: updateGame,
+           savePiece: savePiece, getPieceBag: getPieceBag};
 })();
+
+Replay.running = false;
