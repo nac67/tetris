@@ -119,10 +119,12 @@ function animate() {
                 
                 finishTime = getTime();
 
-                if(highscore == 0 || finishTime < highscore) {
-                    highscore = finishTime;
+                if (!Replay.running){
+                    if(highscore == 0 || finishTime < highscore) {
+                        highscore = finishTime;
+                    }
+                    setCookie("sprint_highscore",String(highscore),365);
                 }
-                setCookie("sprint_highscore",String(highscore),365);
 
             }
         }
