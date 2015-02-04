@@ -7,7 +7,7 @@ var timer_txt = document.getElementById("timer");
 NO_MERCY = true;
 SPEED_UP = false;
 
-var NEEDED_LINES = 1;
+var NEEDED_LINES = 40;
 var COUNTDOWN_TIME = 180;
 
 var score = 0;
