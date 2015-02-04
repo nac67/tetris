@@ -10,7 +10,7 @@ var Replay = (function () {
     }
 
     var saveFrame = function (controls, time) {
-        if (currentReplay.length > 7200) return;
+        if (currentReplay.length > 10800) return;
 
         currentReplay[time] = {spin: Key.isDown(controls.spin),
                             left: Key.isDown(controls.left),

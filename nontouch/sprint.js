@@ -7,7 +7,7 @@ var timer_txt = document.getElementById("timer");
 NO_MERCY = true;
 SPEED_UP = false;
 
-var NEEDED_LINES = 40;
+var NEEDED_LINES = 1;
 var COUNTDOWN_TIME = 180;
 
 var score = 0;
@@ -108,10 +108,20 @@ function animate() {
             startTime = new Date();
             countDown = -1;
         } else {
+            // if (!Replay.running) {
+            //     Replay.saveFrame(player1.controls, elapsedFrames);
+            // }
+            // updateResults = Replay.updateGame(player1, elapsedFrames);
+
+            
             if (!Replay.running) {
                 Replay.saveFrame(player1.controls, elapsedFrames);
+                updateResults = player1.updateWithKeyboard();
+            } else {
+                updateResults = Replay.updateGame(player1, elapsedFrames);
             }
-            updateResults = Replay.updateGame(player1, elapsedFrames);
+            
+
             elapsedFrames++;
 
             lineCount -= updateResults.rowsCleared;
