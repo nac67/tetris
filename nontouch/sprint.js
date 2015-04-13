@@ -130,6 +130,10 @@ function animate() {
                 finishTime = getTime();
 
                 if (!Replay.running){
+                    // A game has finished
+                    CookieHelpers.incrementToday();
+
+
                     if(highscore == 0 || finishTime < highscore) {
                         highscore = finishTime;
                     }
