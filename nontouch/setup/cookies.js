@@ -16,7 +16,7 @@ function getCookie(cname){
 } 
 
 var CookieHelpers = {
-    expire:7,
+    expire:11,
 
     getDateString: function (offset) {
         if (typeof(offset) === 'undefined') {
@@ -48,5 +48,18 @@ var CookieHelpers = {
         } else {
             throw new Error("That day has expired");
         }
+    },
+
+    getLastNAverage: function(n) {
+        if (n < CookieHelpers.expire) {
+            var sum = 0;
+            for (var i = 0; i < n; i++) {
+                sum += CookieHelpers.getPreviousDay(i);
+            }
+            return sum / n;
+        } else {
+            throw new Error("N too large, a day has expired");
+        }
+        
     },
 }
