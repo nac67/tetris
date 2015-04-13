@@ -31,7 +31,7 @@ var CookieHelpers = {
 
     incrementToday: function() {
         var oldValue = CookieHelpers.getToday();
-        setCookie(CookieHelpers.getDateString(), oldValue+1, expire);
+        setCookie(CookieHelpers.getDateString(), oldValue+1, CookieHelpers.expire);
     },
 
     getToday: function() {
@@ -43,7 +43,7 @@ var CookieHelpers = {
     },
 
     getPreviousDay: function(n) {
-        if (n < expire) {
+        if (n < CookieHelpers.expire) {
             return Number(getCookie(CookieHelpers.getDateString(n)));
         } else {
             throw new Error("That day has expired");
